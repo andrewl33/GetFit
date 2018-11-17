@@ -28,6 +28,7 @@ export default class GoalListItem extends PureComponent {
   }
 }
 
+// defines what is passed down to GoalListItem
 GoalListItem.propTypes = {
   title: PropTypes.string.isRequired,
 };

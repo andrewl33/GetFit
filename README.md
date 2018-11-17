@@ -2,6 +2,10 @@
 
 Fitness goal-setting mobile application. Group project for CS 340 at Oregon State University.
 
+## TODO
+
+- [ ] Nav Bar
+
 ## Getting it on your machine
 
 This get the code up and running on your computer
@@ -9,7 +13,7 @@ This get the code up and running on your computer
 1. Make sure [NodeJS](https://nodejs.org/en/) is installed.
 2. Install [Expo](https://expo.io/) globally using npm, `npm i -g expo`
 3. `git clone` this repository to your computer
-4. Run `npm install` to install all dependencies
+4. Run `npm ci` to install all dependencies
 5. Run `expo start` to start the application
 
 ## Getting it working with your phone
