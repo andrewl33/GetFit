@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { _getAllGoals } from '../Storage/GoalsStorage';
 import GoalListItem from './GoalListItem';
 
 const styles = StyleSheet.create({
@@ -26,25 +27,22 @@ export default class GoalsContainer extends Component {
     };
   }
 
-  componentDidMount() {
-    const fillItemList = [];
-    for (let i = 0; i < 100; i++) {
-      fillItemList.push({
-        id: i.toString(),
-        title: `Goal item ${i}`,
-      });
-    }
+  componentDidMount = async () => {
+    const objs = await _getAllGoals(); // comes in as obj of objs
+    // convert object of objects into array of objects
+    const goals = Object.keys(objs).map(key => {
+      const ar = objs[key];
+      return ar;
+    });
+    this.setState({ items: goals });
+  };
 
-    this.setState({ items: fillItemList });
-  }
-
-  _keyExtractor = item => item.id;
+  _keyExtractor = item => String(item.id);
 
   _renderItem = ({ item }) => <GoalListItem title={item.title} />;
 
   render() {
     const { items } = this.state;
-
     return (
       <View style={styles.container}>
         <Text style={styles.header}>GoalsContainer</Text>
