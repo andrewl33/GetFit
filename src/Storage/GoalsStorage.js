@@ -65,6 +65,7 @@ export const _developmentGoalInsert = async () => {
   const initialGoals = {
     1: {
       id: 1,
+      title: 'Goal Item 1',
       createDate: '1-1-2001',
       endDate: '1-2-2001',
       isActive: false,
@@ -75,6 +76,7 @@ export const _developmentGoalInsert = async () => {
     },
     2: {
       id: 2,
+      title: 'Goal Item 2',
       createDate: '1-10-2001',
       endDate: '1-15-2001',
       isActive: true,
@@ -85,6 +87,7 @@ export const _developmentGoalInsert = async () => {
     },
     3: {
       id: 3,
+      title: 'Goal Item 3',
       createDate: '1-20-2001',
       endDate: '1-22-2002',
       isActive: false,
