@@ -91,7 +91,7 @@ export const _developmentGoalInsert = async () => {
       createDate: '1-20-2001',
       endDate: '1-22-2002',
       isActive: false,
-      unitType: 'weight',
+      unitType: 'lbs',
       startAmount: 180,
       progress: 170,
       endAmount: 150,
