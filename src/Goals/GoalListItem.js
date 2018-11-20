@@ -18,11 +18,29 @@ const styles = StyleSheet.create({
 
 export default class GoalListItem extends PureComponent {
   render() {
-    const { title } = this.props;
-
+    const {
+      title,
+      isActive,
+      createDate,
+      endDate,
+      unitType,
+      startAmount,
+      progress,
+      endAmount,
+      remain,
+    } = this.props;
     return (
       <View style={styles.container}>
         <Text style={styles.text}>{title}</Text>
+        <Text style={styles.text}>
+          Start:{createDate} End:{endDate}
+        </Text>
+        <Text style={styles.text}>
+          Progress: {progress} {unitType} out of {endAmount} {unitType}
+        </Text>
+        <Text style={styles.text}>
+          {remain} {unitType} to go!
+        </Text>
       </View>
     );
   }
