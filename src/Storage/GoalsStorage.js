@@ -6,7 +6,8 @@ import { AsyncStorage } from 'react-native';
  * AsyncStorage: {
  *  Goals: {
  *      <GoalUniqueIdGoesHere>: {
- *        id: <values>
+ *        id: <values>,
+ *        title: string,
  *        createDate:  <dateString>,
  *        endDate: <dateString>,
  *        isActive: boolean,
@@ -30,13 +31,20 @@ import { AsyncStorage } from 'react-native';
 export const _addNewGoal = async newGoal => {
   try {
     const oldData = await AsyncStorage.getItem('Goals');
-    const data = JSON.parse(oldData);
+    let data = {};
+    if (oldData === null || oldData === undefined || oldData === 'undefined') {
+      data[newGoal.id] = newGoal;
+    } else {
+      data = JSON.parse(oldData);
+    }
     data[newGoal.id] = newGoal;
     const newData = JSON.stringify(data);
     AsyncStorage.setItem('Goals', newData);
   } catch (e) {
-    // TODO: handle error
+    console.log('_addNewGoal');
   }
+
+  return null;
 };
 
 /**
@@ -47,10 +55,15 @@ export const _addNewGoal = async newGoal => {
 export const _getAllGoals = async () => {
   try {
     const oldData = await AsyncStorage.getItem('Goals');
-    const data = JSON.parse(oldData);
+    let data;
+    if (oldData === null || oldData === undefined || oldData === 'undefined') {
+      data = null;
+    } else {
+      data = JSON.parse(oldData);
+    }
     return data;
   } catch (e) {
-    console.log('_addNewGoal Error:');
+    console.log('_getAllGoals Error:');
     console.log(e);
   }
 
@@ -91,7 +104,7 @@ export const _developmentGoalInsert = async () => {
       createDate: '1-20-2001',
       endDate: '1-22-2002',
       isActive: false,
-      unitType: 'weight',
+      unitType: 'lbs',
       startAmount: 180,
       progress: 170,
       endAmount: 150,
