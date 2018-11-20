@@ -2,6 +2,9 @@ import React from 'react';
 import { Button, StyleSheet, View } from 'react-native';
 import GoalsContainer from './src/Goals/GoalsContainer';
 import { _developmentGoalInsert } from './src/Storage/GoalsStorage';
+import CustomGoal from './src/CustomGoal/CustomGoal';
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -16,6 +19,7 @@ const styles = StyleSheet.create({
     height: 45,
   },
 });
+
 export default class App extends React.Component {
   state = {
     route: 'Home',
@@ -29,6 +33,10 @@ export default class App extends React.Component {
     this.setState({ route: 'Goals' });
   };
 
+  routeHandler2 = () => {
+    this.setState({ route: 'CustomGoal' });
+  };
+
   render() {
     const { route } = this.state;
 
@@ -37,11 +45,13 @@ export default class App extends React.Component {
         {route === 'Home' && (
           <View style={styles.button}>
             <Button onPress={() => this.routeHandler('Goals')} title="Goals">
-              Goals
-            </Button>
+            //</Button>
+            <Button onPress={() => this.routeHandler2('Goals')} title="Custom Goal">
+            //</Button>
           </View>
         )}
         {route === 'Goals' && <GoalsContainer />}
+        {route === 'CustomGoal' && <CustomGoal />}
       </View>
     );
   }
