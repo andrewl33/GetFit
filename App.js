@@ -27,12 +27,8 @@ export default class App extends React.Component {
     await _developmentNewGoalInsert();
   };
 
-  routeHandler = () => {
-    this.setState({ route: 'Goals' });
-  };
-
-  routeHandler2 = () => {
-    this.setState({ route: 'New Goals' });
+  routeHandler = routeType => {
+    this.setState({ route: routeType });
   };
 
   render() {
@@ -50,7 +46,7 @@ export default class App extends React.Component {
         {route === 'Goals' && <GoalsContainer />}
         {route === 'Home' && (
           <View style={styles.button}>
-            <Button onPress={() => this.routeHandler2('New Goals')} title="Add New Goals">
+            <Button onPress={() => this.routeHandler('New Goals')} title="Add New Goals">
               Add New Goals
             </Button>
           </View>
