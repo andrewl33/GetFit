@@ -1,7 +1,8 @@
 import React from 'react';
 import { Button, StyleSheet, View } from 'react-native';
 import GoalsContainer from './src/Goals/GoalsContainer';
-import { _developmentGoalInsert } from './src/Storage/GoalsStorage';
+import NewGoalsContainer from './src/Goals/NewGoalContainer';
+import { _developmentGoalInsert, _developmentNewGoalInsert } from './src/Storage/GoalsStorage';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,10 +24,11 @@ export default class App extends React.Component {
 
   componentDidMount = async () => {
     await _developmentGoalInsert();
+    await _developmentNewGoalInsert();
   };
 
-  routeHandler = () => {
-    this.setState({ route: 'Goals' });
+  routeHandler = routeType => {
+    this.setState({ route: routeType });
   };
 
   render() {
@@ -42,6 +44,14 @@ export default class App extends React.Component {
           </View>
         )}
         {route === 'Goals' && <GoalsContainer />}
+        {route === 'Home' && (
+          <View style={styles.button}>
+            <Button onPress={() => this.routeHandler('New Goals')} title="Add New Goals">
+              Add New Goals
+            </Button>
+          </View>
+        )}
+        {route === 'New Goals' && <NewGoalsContainer />}
       </View>
     );
   }
