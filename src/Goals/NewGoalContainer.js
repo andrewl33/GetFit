@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { FlatList, StyleSheet, Text, View, Button, Alert } from 'react-native';
-import { _getNewGoals } from '../Storage/GoalsStorage';
-import GoalListItem from './GoalListItem';
+import { _getNewGoals, _addNewGoal } from '../Storage/GoalsStorage';
 
 const styles = StyleSheet.create({
   container: {
@@ -16,6 +15,9 @@ const styles = StyleSheet.create({
   },
   flatList: {
     alignSelf: 'stretch',
+  },
+  button: {
+    margin: 20,
   },
 });
 
@@ -41,9 +43,17 @@ export default class NewGoalsContainer extends Component {
     this.setState({ items: newGoals });
   };
 
+  showGoalDetails = () => {
+    Alert.alert('Placeholder Goal Details...');
+  };
+
   _keyExtractor = item => String(item.id);
 
-  _renderItem = ({ item }) => <GoalListItem title={item.title} />;
+  _renderItem = ({ item }) => (
+    <View style={styles.button}>
+      <Button onPress={() => this.showGoalDetails()} title={item.title} />
+    </View>
+  );
 
   render() {
     const { items } = this.state;
@@ -57,7 +67,7 @@ export default class NewGoalsContainer extends Component {
           renderItem={this._renderItem}
         />
         <View style={styles.button}>
-          <Button onPress={() => this.AlertText()} title="Add New Goals">
+          <Button onPress={() => this.AlertText()} title="Add Selected Goals">
             Add New Goals
           </Button>
         </View>
