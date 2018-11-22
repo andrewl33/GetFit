@@ -1,7 +1,11 @@
 {
+  "env": {
+    "jest/globals": true
+  },
   "extends": ["airbnb", "prettier", "prettier/react"],
   "rules": {
     "linebreak-style": 0,
+    "no-await-in-loop": 0,
     "no-console": 0,
     "no-plusplus": [2, { "allowForLoopAfterthoughts": true }],
     "no-underscore-dangle": 0,
@@ -22,7 +26,7 @@
     ],
     "react/prefer-stateless-function": ["disabled"]
   },
-  "plugins": ["prettier"],
+  "plugins": ["prettier", "jest"],
   "settings": {
     "import/resolver": {
       "node": {
