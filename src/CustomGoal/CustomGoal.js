@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, TextInput, Button, Text } from 'react-native';
 
-export default class SO_LoginExample extends Component<{}> {
+export default class NewGoal extends Component<{}> {
     constructor(props) {
         super(props);
         this.state = {
@@ -10,7 +10,7 @@ export default class SO_LoginExample extends Component<{}> {
             createDate: undefined, 
             endDate: undefined,
             isActive: undefined,
-            unitSteps: undefined,
+            unitType: undefined,
             startAmount: undefined,
             progress: undefined,
             endAmount: undefined
@@ -18,7 +18,7 @@ export default class SO_LoginExample extends Component<{}> {
     }
 
     submit() {
-        console.log(this.state.id, this.state.title, this.state.createDate, this.state.endDate, this.state.isActive, this.state.unitSteps, this.state.startAmount, this.state.progress, this.state.endAmount);
+        console.log(this.state.id, this.state.title, this.state.createDate, this.state.endDate, this.state.isActive, this.state.unitType, this.state.startAmount, this.state.progress, this.state.endAmount);
     }
 
     render() {
@@ -57,7 +57,7 @@ export default class SO_LoginExample extends Component<{}> {
                 />                
                 <TextInput
                     style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-                    onChangeText={(inputVal) => this.setState({unitSteps: inputVal})}
+                    onChangeText={(inputVal) => this.setState({unitType: inputVal})}
                     placeholder="Unit Steps"
                 value={this.state.unitSteps}
                 /> 
