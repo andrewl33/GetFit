@@ -51,6 +51,12 @@ export default class App extends React.Component {
           </View>
         )}
         {route === 'Goals' && <GoalsContainer />}
+        {route === 'Home' && (
+          <View style={styles.button}>   
+            <Button onPress={() => this.routeHandler2('Goals')} title="Custom Goal">
+            //</Button>
+          </View>
+        )}                   
         {route === 'CustomGoal' && <CustomGoal />}
       </View>
     );
