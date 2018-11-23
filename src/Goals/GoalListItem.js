@@ -29,6 +29,7 @@ export default class GoalListItem extends PureComponent {
       endAmount,
     } = this.props;
     const remain = endAmount - progress;
+
     return (
       <View style={styles.container}>
         <Text style={styles.text}>{title}</Text>
@@ -49,4 +50,7 @@ export default class GoalListItem extends PureComponent {
 // defines what is passed down to GoalListItem
 GoalListItem.propTypes = {
   title: PropTypes.string.isRequired,
+  progress: PropTypes.number.isRequired,
+  endAmount: PropTypes.number.isRequired,
+  unitType: PropTypes.string.isRequired,
 };

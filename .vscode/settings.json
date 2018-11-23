@@ -12,6 +12,8 @@
   "eslint.autoFixOnSave": true,
   "eslint.alwaysShowStatus": true,
   "cSpell.words": [
-    "linebreak"
+    "linebreak",
+    "no",
+    "plusplus"
   ]
 }

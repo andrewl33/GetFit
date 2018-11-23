@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GoalsContainer renders 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "alignSelf": "stretch",
+      "flex": 1,
+      "justifyContent": "center",
+      "marginTop": 50,
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "fontSize": 35,
+      }
+    }
+  >
+    GoalsContainer
+  </Text>
+</View>
+`;

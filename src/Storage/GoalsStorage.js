@@ -6,7 +6,8 @@ import { AsyncStorage } from 'react-native';
  * AsyncStorage: {
  *  Goals: {
  *      <GoalUniqueIdGoesHere>: {
- *        id: <values>
+ *        id: <values>,
+ *        title: string,
  *        createDate:  <dateString>,
  *        endDate: <dateString>,
  *        isActive: boolean,
@@ -30,13 +31,20 @@ import { AsyncStorage } from 'react-native';
 export const _addNewGoal = async newGoal => {
   try {
     const oldData = await AsyncStorage.getItem('Goals');
-    const data = JSON.parse(oldData);
+    let data = {};
+    if (oldData === null || oldData === undefined || oldData === 'undefined') {
+      data[newGoal.id] = newGoal;
+    } else {
+      data = JSON.parse(oldData);
+    }
     data[newGoal.id] = newGoal;
     const newData = JSON.stringify(data);
     AsyncStorage.setItem('Goals', newData);
   } catch (e) {
-    // TODO: handle error
+    console.log('_addNewGoal');
   }
+
+  return null;
 };
 
 /**
@@ -47,6 +55,29 @@ export const _addNewGoal = async newGoal => {
 export const _getAllGoals = async () => {
   try {
     const oldData = await AsyncStorage.getItem('Goals');
+    let data;
+    if (oldData === null || oldData === undefined || oldData === 'undefined') {
+      data = null;
+    } else {
+      data = JSON.parse(oldData);
+    }
+    return data;
+  } catch (e) {
+    console.log('_getAllGoals Error:');
+    console.log(e);
+  }
+
+  return null;
+};
+
+/**
+ * getNewGoals
+ *
+ * uses https://facebook.github.io/react-native/docs/asyncstorage#getitem
+ */
+export const _getNewGoals = async () => {
+  try {
+    const oldData = await AsyncStorage.getItem('New Goals');
     const data = JSON.parse(oldData);
     return data;
   } catch (e) {
@@ -99,4 +130,48 @@ export const _developmentGoalInsert = async () => {
   };
 
   AsyncStorage.setItem('Goals', JSON.stringify(initialGoals));
+};
+
+/**
+ * just for development; create a static list of new suggested goals
+ */
+
+export const _developmentNewGoalInsert = async () => {
+  const newGoals = {
+    4: {
+      id: 4,
+      title: 'Pushups',
+      createDate: '11-15-2018',
+      endDate: '11-22-2018',
+      isActive: false,
+      unitType: 'pushups',
+      startAmount: 0,
+      progress: 0,
+      endAmount: 700,
+    },
+    5: {
+      id: 5,
+      title: 'Running',
+      createDate: '11-15-2018',
+      endDate: '11-22-2018',
+      isActive: false,
+      unitType: 'miles',
+      startAmount: 0,
+      progress: 0,
+      endAmount: 25,
+    },
+    6: {
+      id: 6,
+      title: 'Losing Weight',
+      createDate: '11-15-2018',
+      endDate: '11-29-2018',
+      isActive: false,
+      unitType: 'weight',
+      startAmount: 180,
+      progress: 180,
+      endAmount: 150,
+    },
+  };
+
+  AsyncStorage.setItem('New Goals', JSON.stringify(newGoals));
 };

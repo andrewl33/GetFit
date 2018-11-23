@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GoalListItem renders 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "borderRadius": 2,
+      "flex": 1,
+      "justifyContent": "center",
+      "padding": 10,
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "fontSize": 20,
+      }
+    }
+  >
+    Goal Item 2
+  </Text>
+  <Text
+    style={
+      Object {
+        "fontSize": 20,
+      }
+    }
+  >
+    Progress: 
+    2.5
+     
+    miles
+     Goal: 
+    10
+     
+    miles
+  </Text>
+</View>
+`;
