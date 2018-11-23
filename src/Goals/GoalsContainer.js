@@ -39,19 +39,7 @@ export default class GoalsContainer extends Component {
 
   _keyExtractor = item => String(item.id);
 
-  _renderItem = ({ item }) => (
-    <GoalListItem
-      title={item.title}
-      isActive={item.isActive}
-      createDate={item.createDate}
-      endDate={item.endDate}
-      unitType={item.unitType}
-      startAmount={item.startAmount}
-      progress={item.progress}
-      endAmount={item.endAmount}
-      remain={item.endAmount - item.progress}
-    />
-  );
+  _renderItem = ({ item }) => <GoalListItem {...item} />;
 
   render() {
     const { items } = this.state;

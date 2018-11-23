@@ -27,8 +27,8 @@ export default class GoalListItem extends PureComponent {
       startAmount,
       progress,
       endAmount,
-      remain,
     } = this.props;
+    const remain = endAmount - progress;
     return (
       <View style={styles.container}>
         <Text style={styles.text}>{title}</Text>
