@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, StyleSheet, View } from 'react-native';
 import GoalsContainer from './src/Goals/GoalsContainer';
 import NewGoalsContainer from './src/Goals/NewGoalContainer';
+import CreateCustomGoal from './src/Goals/CreateCustomGoal';
 import { _developmentGoalInsert, _developmentNewGoalInsert } from './src/Storage/GoalsStorage';
 
 const styles = StyleSheet.create({
@@ -17,6 +18,7 @@ const styles = StyleSheet.create({
     height: 45,
   },
 });
+
 export default class App extends React.Component {
   state = {
     route: 'Home',
@@ -36,6 +38,7 @@ export default class App extends React.Component {
 
     return (
       <View style={styles.container}>
+        
         {route === 'Home' && (
           <View style={styles.button}>
             <Button onPress={() => this.routeHandler('Goals')} title="Goals">
@@ -44,6 +47,7 @@ export default class App extends React.Component {
           </View>
         )}
         {route === 'Goals' && <GoalsContainer />}
+        
         {route === 'Home' && (
           <View style={styles.button}>
             <Button onPress={() => this.routeHandler('New Goals')} title="Add New Goals">
@@ -52,6 +56,16 @@ export default class App extends React.Component {
           </View>
         )}
         {route === 'New Goals' && <NewGoalsContainer />}
+        
+        {route === 'Home' && (
+          <View style={styles.button}>
+            <Button onPress={() => this.routeHandler('Create Custom Goal')} title="Create Custom Goal">
+              Create Custom Goal
+            </Button>
+          </View>
+        )}
+        {route === 'Create Custom Goal' && <CreateCustomGoal />}
+
       </View>
     );
   }
