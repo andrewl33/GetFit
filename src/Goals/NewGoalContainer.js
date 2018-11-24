@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FlatList, StyleSheet, Text, View, Button, Alert } from 'react-native';
-import { _getNewGoals, _addNewGoal } from '../Storage/GoalsStorage';
+import { _getNewGoals, _addNewGoal, _getAllGoals } from '../Storage/GoalsStorage';
 
 const styles = StyleSheet.create({
   container: {
@@ -29,32 +29,68 @@ export default class NewGoalsContainer extends Component {
     };
   }
 
-  AlertText = () => {
-    Alert.alert('Goal Added!');
-  };
-
   componentDidMount = async () => {
     const objs = await _getNewGoals(); // comes in as obj of objs
     // convert object of objects into array of objects
     const newGoals = Object.keys(objs).map(key => {
       const ar = objs[key];
+      ar.selected = false;
       return ar;
     });
     this.setState({ items: newGoals });
   };
 
-  showGoalDetails = ({item}) => {
+  showGoalDetails = ({ item }) => {
     Alert.alert(
-      'Goal:  ' + item.endAmount + ' ' + item.unitType + '\n' +
-      'When:  ' + item.createDate + ' to ' + item.endDate
+      `Goal:  ${item.endAmount} ${item.unitType}\n When:  ${item.createDate} to ${item.endDate}`
     );
   };
 
+  /**
+   * Goal Selection
+   */
+
+  selectItem = ({ item }) => {
+    const newItem = { ...item };
+    newItem.selected = !newItem.selected;
+
+    this.setState(prevState => {
+      const newState = [...prevState.items];
+      const index = prevState.items.indexOf(item);
+      newState[index] = newItem;
+      return {
+        items: newState,
+      };
+    });
+  };
+
+  addSelectedGoals = async () => {
+    const { items } = this.state;
+
+    for (const item of items) {
+      if (item.selected) {
+        const newItem = { ...item }; // don't know if item is passed by reference
+        delete newItem.selected;
+        await _addNewGoal(newItem);
+      }
+    }
+
+    // TODO: remove, used for development
+    console.log(await _getAllGoals());
+  };
+
+  /**
+   * FlatList Methods
+   */
   _keyExtractor = item => String(item.id);
 
   _renderItem = ({ item }) => (
     <View style={styles.button}>
-      <Button onPress={() => this.showGoalDetails({item})} title={item.title} />
+      <Button onPress={() => this.showGoalDetails({ item })} title={item.title} />
+      <Button
+        onPress={() => this.selectItem({ item })}
+        title={item.selected ? 'Selected' : 'Select'}
+      />
     </View>
   );
 
@@ -70,7 +106,7 @@ export default class NewGoalsContainer extends Component {
           renderItem={this._renderItem}
         />
         <View style={styles.button}>
-          <Button onPress={() => this.AlertText()} title="Add Selected Goals">
+          <Button onPress={() => this.addSelectedGoals()} title="Add Selected Goals">
             Add New Goals
           </Button>
         </View>

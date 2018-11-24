@@ -8,6 +8,7 @@
     "no-await-in-loop": 0,
     "no-console": 0,
     "no-plusplus": [2, { "allowForLoopAfterthoughts": true }],
+    "no-restricted-syntax": 0,
     "no-underscore-dangle": 0,
     "prefer-destructuring": "off",
     "prettier/prettier": [
