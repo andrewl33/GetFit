@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, Button, Alert } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
 import { _addNewGoal, _getAllGoals } from '../Storage/GoalsStorage';
 
 const styles = StyleSheet.create({
@@ -27,7 +27,6 @@ export default class CreateCustomGoal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: Date.now(), // unique id
       title: undefined,
       createDate: undefined,
       endDate: undefined,
@@ -64,6 +63,7 @@ export default class CreateCustomGoal extends Component {
     // }
 
     await _addNewGoal(this.state);
+    // TODO: remove
     await console.log(await _getAllGoals());
   }
 

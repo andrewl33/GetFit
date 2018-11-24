@@ -16,7 +16,7 @@ import { AsyncStorage } from 'react-native';
  *        progress: number,
  *        endAmount: number
  *     },
- *     activeGoals: ["<goalID>"]
+ *     goalIds: ["<goalID>"]
  *  }
  * }
  */
@@ -33,11 +33,21 @@ export const _addNewGoal = async newGoal => {
     const oldData = await AsyncStorage.getItem('Goals');
     let data = {};
     if (oldData === null || oldData === undefined || oldData === 'undefined') {
-      data[newGoal.id] = newGoal;
+      data['0'] = newGoal;
+      data['0'].id = '0';
+      data.goalIds = ['0'];
     } else {
       data = JSON.parse(oldData);
+
+      // increment key and set new key
+      const newId = data.goalIds.length;
+      newId.toString();
+
+      data[newId] = newGoal;
+      data[newId].id = newId;
+      data.goalIds.push(newId.toString());
     }
-    data[newGoal.id] = newGoal;
+
     const newData = JSON.stringify(data);
     AsyncStorage.setItem('Goals', newData);
   } catch (e) {
@@ -61,6 +71,9 @@ export const _getAllGoals = async () => {
     } else {
       data = JSON.parse(oldData);
     }
+
+    delete data.goalIds;
+
     return data;
   } catch (e) {
     console.log('_getAllGoals Error:');
@@ -94,7 +107,7 @@ export const _getNewGoals = async () => {
 
 export const _developmentGoalInsert = async () => {
   const initialGoals = {
-    1: {
+    0: {
       id: 1,
       title: 'Goal Item 1',
       createDate: '1-1-2001',
@@ -105,7 +118,7 @@ export const _developmentGoalInsert = async () => {
       progress: 1002,
       endAmount: 5000,
     },
-    2: {
+    1: {
       id: 2,
       title: 'Goal Item 2',
       createDate: '1-10-2001',
@@ -116,7 +129,7 @@ export const _developmentGoalInsert = async () => {
       progress: 2.5,
       endAmount: 10,
     },
-    3: {
+    2: {
       id: 3,
       title: 'Goal Item 3',
       createDate: '1-20-2001',
@@ -127,6 +140,7 @@ export const _developmentGoalInsert = async () => {
       progress: 170,
       endAmount: 150,
     },
+    goalIds: ['0', '1', '2'],
   };
 
   AsyncStorage.setItem('Goals', JSON.stringify(initialGoals));
