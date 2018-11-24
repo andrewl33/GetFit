@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FlatList, StyleSheet, Text, View, Button, Alert } from 'react-native';
-import { _getNewGoals, _addNewGoal } from '../Storage/GoalsStorage';
+import { _getNewGoals, _addNewGoal, _getAllGoals } from '../Storage/GoalsStorage';
 
 const styles = StyleSheet.create({
   container: {
@@ -29,11 +29,6 @@ export default class NewGoalsContainer extends Component {
     };
   }
 
-  // TODO: remove eventually
-  AlertText = () => {
-    Alert.alert('Goal Added!');
-  };
-
   componentDidMount = async () => {
     const objs = await _getNewGoals(); // comes in as obj of objs
     // convert object of objects into array of objects
@@ -51,6 +46,10 @@ export default class NewGoalsContainer extends Component {
     );
   };
 
+  /**
+   * Goal Selection
+   */
+
   selectItem = ({ item }) => {
     const newItem = { ...item };
     newItem.selected = !newItem.selected;
@@ -65,6 +64,24 @@ export default class NewGoalsContainer extends Component {
     });
   };
 
+  addSelectedGoals = async () => {
+    const { items } = this.state;
+
+    for (const item of items) {
+      if (item.selected) {
+        const newItem = { ...item }; // don't know if item is passed by reference
+        delete newItem.selected;
+        await _addNewGoal(newItem);
+      }
+    }
+
+    // TODO: remove, used for development
+    console.log(await _getAllGoals());
+  };
+
+  /**
+   * FlatList Methods
+   */
   _keyExtractor = item => String(item.id);
 
   _renderItem = ({ item }) => (
@@ -89,7 +106,7 @@ export default class NewGoalsContainer extends Component {
           renderItem={this._renderItem}
         />
         <View style={styles.button}>
-          <Button onPress={() => this.AlertText()} title="Add Selected Goals">
+          <Button onPress={() => this.addSelectedGoals()} title="Add Selected Goals">
             Add New Goals
           </Button>
         </View>
