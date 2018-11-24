@@ -1,33 +1,88 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View, Button, Alert } from 'react-native';
+import { _addNewGoal } from '../Storage/GoalsStorage';
 
-/**
- * AsyncStorage is global,
- * so we're going to store Goal storage like
- * AsyncStorage: {
- *  Goals: {
- *      <GoalUniqueIdGoesHere>: {
- *        id: <values>,
- *        title: string,
- *        createDate:  <dateString>,
- *        endDate: <dateString>,
- *        isActive: boolean,
- *        unitType: steps | <someSortOfUnitToMeasure>,
- *        startAmount: number,
- *        progress: number,
- *        endAmount: number
- *     },
- *     activeGoals: ["<goalID>"]
- *  }
- * }
- */
+export default class CreateCustomGoal extends Component {
 
-/**
- * addNewGoal
- *
- * uses static setItem(key: string, value: string, [callback]: ?(error: ?Error) => void)
- *
- */
+    constructor(props) {
+        super(props);
+        this.state = {
+            id: Date.now(),         // unique id
+            title: undefined,
+            createDate: undefined,
+            endDate: undefined,
+            isActive: false,        // initially inactive
+            unitType: undefined,
+            startAmount: 0,         // initially 0
+            progress: 0,            // initially 0
+            endAmount: undefined
+        }
+    }
+
+    submit() {
+        console.log(
+            this.state.id,
+            this.state.title,
+            this.state.createDate, 
+            this.state.endDate,
+            this.state.isActive,
+            this.state.unitType,
+            this.state.startAmount,
+            this.state.progress,
+            this.state.endAmount
+        );
+        
+        if (this.state.title      == undefined ||
+            this.state.createDate == undefined ||
+            this.state.endDate    == undefined ||
+            this.state.unitType   == undefined ||
+            this.state.endAmount  == undefined) {
+            Alert.alert('Please leave nothing blank');
+        }
+        else {
+            Alert.alert(this.state.title + ' Added Successfully!');
+        }
+    }
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.header}>Create A Custom Goal</Text>
+                <TextInput
+                    style = { styles.ti }
+                    placeholder = 'title'
+                    onChangeText = { (text) => this.setState({title: text}) }
+                />
+                <TextInput
+                    style = { styles.ti }
+                    placeholder = 'start date'
+                    onChangeText = { (text) => this.setState({createDate: text}) }
+                />
+                <TextInput
+                    style = { styles.ti }
+                    placeholder = 'end date'
+                    onChangeText = { (text) => this.setState({endDate: text}) }
+                />
+                <TextInput
+                    style = { styles.ti }
+                    placeholder = 'amount'
+                    onChangeText = { (text) => this.setState({endAmount: text}) }
+                />
+                <TextInput
+                    style = { styles.ti }
+                    placeholder = 'unit'
+                    onChangeText = { (text) => this.setState({unitType: text}) }
+                />
+            
+                <View style={styles.button}>
+                    <Button onPress={() => this.submit()} title="Add Custom Goal">
+                        Add Custom Goal
+                    </Button>
+                </View>
+            </View>
+        );
+    }
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -43,54 +98,9 @@ const styles = StyleSheet.create({
     button: {
         margin: 30,
     },
-    row: {
-        flex: 1,
-        flexDirection: "row"
-    },
-    inputWrap: {
-        flex: 1,
-        borderColor: "#cccccc",
-        borderBottomWidth: 1,
+    ti: {
+        height: 40,
+        borderColor: 'gray',
+        borderWidth: 1
     }
 });
-
-export class UserTextInput extends Component {
-    render() {
-        return (
-            <View style={styles.row}>
-                <View style={styles.inputWrap}>
-                    <Text>{ this.props.inputLabel }:</Text> 
-                    <TextInput
-                        placeholder="Type here"
-                        onChangeText={(text) => this.setState({text})}
-                    />
-                </View>
-            </View>
-        );
-    }
-}
-
-export default class CreateCustomGoal extends Component {
-
-    AlertText = () => {
-        Alert.alert('Custom Goal Added! ');
-    };
-
-    render() {
-        return (
-            <View style={styles.container}>
-                <Text style={styles.header}>Create A Custom Goal</Text>
-                <UserTextInput inputLabel='title' />
-                <UserTextInput inputLabel='start date' />
-                <UserTextInput inputLabel='end date' />
-                <UserTextInput inputLabel='amount' />
-                <UserTextInput inputLabel='unit' />
-                <View style={styles.button}>
-                    <Button onPress={() => this.AlertText()} title="Add Custom Goal">
-                        Add Custom Goal
-                    </Button>
-                </View>
-            </View>
-        );
-    }
-}
