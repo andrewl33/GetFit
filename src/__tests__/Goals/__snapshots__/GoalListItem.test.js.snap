@@ -28,14 +28,38 @@ exports[`GoalListItem renders 1`] = `
       }
     }
   >
+    Start:
+    1-10-2001
+     End:
+    1-15-2001
+  </Text>
+  <Text
+    style={
+      Object {
+        "fontSize": 20,
+      }
+    }
+  >
     Progress: 
     2.5
      
     miles
-     Goal: 
+     out of 
     10
      
     miles
+  </Text>
+  <Text
+    style={
+      Object {
+        "fontSize": 20,
+      }
+    }
+  >
+    7.5
+     
+    miles
+     to go!
   </Text>
 </View>
 `;

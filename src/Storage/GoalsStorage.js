@@ -94,7 +94,7 @@ export const _getNewGoals = async () => {
     const data = JSON.parse(oldData);
     return data;
   } catch (e) {
-    console.log('_addNewGoal Error:');
+    console.log('_getNewGoals Error:');
     console.log(e);
   }
 

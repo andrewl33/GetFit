@@ -1,6 +1,11 @@
 import MockAsyncStorage from 'mock-async-storage';
 import { AsyncStorage as storage } from 'react-native';
-import { _addNewGoal, _getAllGoals } from '../../Storage/GoalsStorage';
+import {
+  _addNewGoal,
+  _getAllGoals,
+  _getNewGoals,
+  _developmentNewGoalInsert,
+} from '../../Storage/GoalsStorage';
 
 // set up mock async storage
 const mock = () => {
@@ -64,6 +69,17 @@ describe('GoalsStorage', () => {
       } catch (e) {
         console.log('test: _getAllGoals');
       }
+    });
+  });
+
+  describe('_getNewGoals()', async () => {
+    it('gets all new goals', async () => {
+      await _developmentNewGoalInsert();
+      const allNewGoals = await _getNewGoals();
+      expect([...Object.keys(allNewGoals)].length).toBe(3);
+    });
+    it('returns null on empty goals', async () => {
+      expect(await _getNewGoals()).toBe(null);
     });
   });
 });
