@@ -43,15 +43,18 @@ export default class NewGoalsContainer extends Component {
     this.setState({ items: newGoals });
   };
 
-  showGoalDetails = () => {
-    Alert.alert('Placeholder Goal Details...');
+  showGoalDetails = ({item}) => {
+    Alert.alert(
+      'Goal:  ' + item.endAmount + ' ' + item.unitType + '\n' +
+      'When:  ' + item.createDate + ' to ' + item.endDate
+    );
   };
 
   _keyExtractor = item => String(item.id);
 
   _renderItem = ({ item }) => (
     <View style={styles.button}>
-      <Button onPress={() => this.showGoalDetails()} title={item.title} />
+      <Button onPress={() => this.showGoalDetails({item})} title={item.title} />
     </View>
   );
 
