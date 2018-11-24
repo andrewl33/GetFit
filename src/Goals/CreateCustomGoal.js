@@ -2,6 +2,27 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View, Button, Alert } from 'react-native';
 import { _addNewGoal, _getAllGoals } from '../Storage/GoalsStorage';
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'stretch',
+    marginTop: 20,
+  },
+  header: {
+    fontSize: 35,
+  },
+  button: {
+    margin: 30,
+  },
+  ti: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+  },
+});
+
 export default class CreateCustomGoal extends Component {
   constructor(props) {
     super(props);
@@ -85,24 +106,3 @@ export default class CreateCustomGoal extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'stretch',
-    marginTop: 20,
-  },
-  header: {
-    fontSize: 35,
-  },
-  button: {
-    margin: 30,
-  },
-  ti: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-  },
-});
