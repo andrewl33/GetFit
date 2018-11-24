@@ -29,6 +29,7 @@ export default class NewGoalsContainer extends Component {
     };
   }
 
+  // TODO: remove eventually
   AlertText = () => {
     Alert.alert('Goal Added!');
   };
@@ -38,23 +39,41 @@ export default class NewGoalsContainer extends Component {
     // convert object of objects into array of objects
     const newGoals = Object.keys(objs).map(key => {
       const ar = objs[key];
+      ar.selected = false;
       return ar;
     });
     this.setState({ items: newGoals });
   };
 
-  showGoalDetails = ({item}) => {
+  showGoalDetails = ({ item }) => {
     Alert.alert(
-      'Goal:  ' + item.endAmount + ' ' + item.unitType + '\n' +
-      'When:  ' + item.createDate + ' to ' + item.endDate
+      `Goal:  ${item.endAmount} ${item.unitType}\n When:  ${item.createDate} to ${item.endDate}`
     );
+  };
+
+  selectItem = ({ item }) => {
+    const newItem = { ...item };
+    newItem.selected = !newItem.selected;
+
+    this.setState(prevState => {
+      const newState = [...prevState.items];
+      const index = prevState.items.indexOf(item);
+      newState[index] = newItem;
+      return {
+        items: newState,
+      };
+    });
   };
 
   _keyExtractor = item => String(item.id);
 
   _renderItem = ({ item }) => (
     <View style={styles.button}>
-      <Button onPress={() => this.showGoalDetails({item})} title={item.title} />
+      <Button onPress={() => this.showGoalDetails({ item })} title={item.title} />
+      <Button
+        onPress={() => this.selectItem({ item })}
+        title={item.selected ? 'Selected' : 'Select'}
+      />
     </View>
   );
 
