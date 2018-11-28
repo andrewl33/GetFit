@@ -108,7 +108,7 @@ export const _getNewGoals = async () => {
 export const _developmentGoalInsert = async () => {
   const initialGoals = {
     0: {
-      id: 1,
+      id: 0,
       title: 'Goal Item 1',
       createDate: '1-1-2001',
       endDate: '1-2-2001',
@@ -119,7 +119,7 @@ export const _developmentGoalInsert = async () => {
       endAmount: 5000,
     },
     1: {
-      id: 2,
+      id: 1,
       title: 'Goal Item 2',
       createDate: '1-10-2001',
       endDate: '1-15-2001',
@@ -130,7 +130,7 @@ export const _developmentGoalInsert = async () => {
       endAmount: 10,
     },
     2: {
-      id: 3,
+      id: 2,
       title: 'Goal Item 3',
       createDate: '1-20-2001',
       endDate: '1-22-2002',
