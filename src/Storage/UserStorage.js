@@ -21,7 +21,7 @@ export const _addNewUser = async newUser => {
     }
 
     const newData = JSON.stringify(data);
-    AsyncStorage.setItem('Users', newData);
+    await AsyncStorage.setItem('Users', newData);
   } catch (e) {
     console.log('_addNewUser');
   }
