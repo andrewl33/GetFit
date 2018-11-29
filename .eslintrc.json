@@ -25,6 +25,7 @@
         "extensions": [".js", ".jsx"]
       }
     ],
+    "react/no-multi-comp": 0,
     "react/prefer-stateless-function": ["disabled"]
   },
   "plugins": ["prettier", "jest"],
