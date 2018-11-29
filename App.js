@@ -6,6 +6,7 @@ import GoalsContainer from './src/Goals/GoalsContainer';
 import NewGoalsContainer from './src/Goals/NewGoalContainer';
 import CreateCustomGoal from './src/Goals/CreateCustomGoal';
 import { _developmentGoalInsert, _developmentNewGoalInsert } from './src/Storage/GoalsStorage';
+import NewAccount from './src/accounts/NewAccount';
 
 const styles = StyleSheet.create({
   container: {
@@ -37,6 +38,13 @@ export default class App extends React.Component {
       icon: 'plus',
       label: 'Custom',
       barColor: '#E64A19',
+      pressColor: 'rgba(0, 0, 0, 0.16)',
+    },
+    {
+      key: 'new-account',
+      icon: 'plus',
+      label: 'Account',
+      barColor: '#800080',
       pressColor: 'rgba(0, 0, 0, 0.16)',
     },
   ];
@@ -77,6 +85,7 @@ export default class App extends React.Component {
           {route === 'goals' && <GoalsContainer />}
           {route === 'new-goals' && <NewGoalsContainer />}
           {route === 'custom-goals' && <CreateCustomGoal />}
+          {route === 'new-account' && <NewAccount />}
         </View>
         <BottomNavigation
           activeTab={route}
