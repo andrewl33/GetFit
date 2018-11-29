@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View, Button, Alert } from 'react-native';
+import { _addNewUser, _getAllUsers } from '../Storage/UserStorage';
 
 const styles = StyleSheet.create({
   container: {
@@ -28,46 +29,73 @@ class Header extends Component {
   }
 }
 
-class InputBox extends Component {
-  render() {
-    return (
-      <View>
-        <TextInput
-          style={styles.text}
-          placeholder={this.props.p}
-        />
-      </View>
-    );
-  }
-}
-
-class InputRow extends Component {
-  render() {
-    return (
-      <View style={{flexDirection: 'row'}}>
-        <Text style={styles.text}>{this.props.label}: </Text>
-        <InputBox p={this.props.label} />
-      </View>
-    );
-  }
-}
-
 export default class NewAccount extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+    };
+    this.submit = this.submit.bind(this);
+  }
+
+  async submit() {
+    Alert.alert("Welcome to GetFit!");
+    console.log(
+      " firstName = " + this.state.firstName + '\n',
+      "lastName  = " + this.state.lastName  + '\n',
+      "email     = " + this.state.email     + '\n',
+      "password  = " + this.state.password,
+    );
+
+    await _addNewUser(this.state);
+    await console.log(await _getAllUsers());
+  }
+  
   render() {
     return (
       <View style={styles.container}>
         <Header />
-        <InputRow label="First Name" />
-        <InputRow label="Last Name" />
-        <InputRow label="Email" />
-        <InputRow label="Password" />
-        <View style={{marginTop: 20}}>
-          <Button
-            onPress={() => Alert.alert("Welcome to GetFit!")}
-            title="Create Account"
-            color="#800080"
+        <View style={{flexDirection: 'row'}}>
+          <Text style={styles.text}>First Name: </Text>
+          <TextInput
+            style={styles.text}
+            onChangeText={input => this.setState({ firstName: input })}
+            placeholder='First Name'
           />
         </View>
+        <View style={{flexDirection: 'row'}}>
+          <Text style={styles.text}>Last Name: </Text>
+          <TextInput
+            style={styles.text}
+            onChangeText={input => this.setState({ lastName: input })}
+            placeholder='Last Name'
+          />
+        </View>
+        <View style={{flexDirection: 'row'}}>
+          <Text style={styles.text}>Email: </Text>
+          <TextInput
+            style={styles.text}
+            onChangeText={input => this.setState({ email: input })}
+            placeholder='Email'
+          />
+        </View>
+        <View style={{flexDirection: 'row'}}>
+          <Text style={styles.text}>Password: </Text>
+          <TextInput
+            style={styles.text}
+            onChangeText={input => this.setState({ password: input })}
+            placeholder='Password'
+            secureTextEntry={true}
+          />
+        </View>
+        <Button
+          onPress={this.submit}
+          title="Create Account"
+          color="#800080"
+        />
       </View>
     );
   }
