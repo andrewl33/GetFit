@@ -23,7 +23,7 @@ class Header extends Component {
   render() {
     return (
       <View style={styles.header}>
-        <Text style={{fontSize: 35}}>New Account</Text>
+        <Text style={{ fontSize: 35 }}>New Account</Text>
       </View>
     );
   }
@@ -42,60 +42,58 @@ export default class NewAccount extends Component {
   }
 
   async submit() {
-    Alert.alert("Welcome to GetFit!");
+    const { firstName, lastName, email, password } = this.state;
+
+    Alert.alert('Welcome to GetFit!');
     console.log(
-      " firstName = " + this.state.firstName + '\n',
-      "lastName  = " + this.state.lastName  + '\n',
-      "email     = " + this.state.email     + '\n',
-      "password  = " + this.state.password,
+      ` firstName = ${firstName}\n`,
+      `lastName  = ${lastName}\n`,
+      `email     = ${email}\n`,
+      `password  = ${password}`
     );
 
     await _addNewUser(this.state);
     await console.log(await _getAllUsers());
   }
-  
+
   render() {
     return (
       <View style={styles.container}>
         <Header />
-        <View style={{flexDirection: 'row'}}>
+        <View style={{ flexDirection: 'row' }}>
           <Text style={styles.text}>First Name: </Text>
           <TextInput
             style={styles.text}
             onChangeText={input => this.setState({ firstName: input })}
-            placeholder='First Name'
+            placeholder="First Name"
           />
         </View>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{ flexDirection: 'row' }}>
           <Text style={styles.text}>Last Name: </Text>
           <TextInput
             style={styles.text}
             onChangeText={input => this.setState({ lastName: input })}
-            placeholder='Last Name'
+            placeholder="Last Name"
           />
         </View>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{ flexDirection: 'row' }}>
           <Text style={styles.text}>Email: </Text>
           <TextInput
             style={styles.text}
             onChangeText={input => this.setState({ email: input })}
-            placeholder='Email'
+            placeholder="Email"
           />
         </View>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{ flexDirection: 'row' }}>
           <Text style={styles.text}>Password: </Text>
           <TextInput
             style={styles.text}
             onChangeText={input => this.setState({ password: input })}
-            placeholder='Password'
-            secureTextEntry={true}
+            placeholder="Password"
+            secureTextEntry
           />
         </View>
-        <Button
-          onPress={this.submit}
-          title="Create Account"
-          color="#800080"
-        />
+        <Button onPress={this.submit} title="Create Account" color="#800080" />
       </View>
     );
   }
